@@ -34,27 +34,6 @@ public class LagrangePolynomial {
         return lagrangePol;
     }
 
-    private double InterpolateLagrangePolynomialY(double y)
-    {
-        double lagrangePol = 0;
-        for (int i = 0; i < yValues.size(); i++)
-        {
-            double basicsPol = 1;
-            for (int j = 0; j < yValues.size(); j++)
-            {
-                if (j != i)
-                {
-                    basicsPol *= (y - this.yValues.get(j))/(this.yValues.get(i) - this.yValues.get(j));
-                }
-            }
-            lagrangePol += basicsPol * this.xValues.get(i);
-        }
-
-        return lagrangePol;
-    }
-
-
-
     public void draw(final Graphics gr) {
         Graphics2D g = (Graphics2D) gr;
         int b = 0;
@@ -62,11 +41,10 @@ public class LagrangePolynomial {
         for (int i = 1; i < 2000; i++){
             g.setFont(new Font("TimesRoman", Font.PLAIN, 50));
             g.setColor(Color.BLACK);
-
             b1 = b;
             b = (int) InterpolateLagrangePolynomialX(i);
             //g.drawString(".",i - 15 ,(int) InterpolateLagrangePolynomialX(i) - 15);
-            g.drawLine(i - 1, b1, i , b);
+            g.drawLine(i-5, b1 - 18, i-5 , b - 18);
             //g.drawString(".",  b, (int) InterpolateLagrangePolynomialY(b) - 15);
         }
     }
