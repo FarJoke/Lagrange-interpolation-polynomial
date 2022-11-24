@@ -18,7 +18,6 @@ public class DrawPanel extends JPanel implements ActionListener {
     Dot d = new Dot(10, 10, 70);
     Background bckgrnd = new Background(15, 1200, 1600);
 
-
     public DrawPanel(final int width, final int height, final int timerDelay) {
         this.PANEL_WIDTH = width;
         this.PANEL_HEIGHT = height;
@@ -57,8 +56,6 @@ public class DrawPanel extends JPanel implements ActionListener {
             f = false;
         }
 
-
-
         for (int i = 0; i < p.size(); i++){
             d.setX(p.get(i).getX() - 15);
             d.setY(p.get(i).getY() - 15);
@@ -70,34 +67,16 @@ public class DrawPanel extends JPanel implements ActionListener {
         d.setColor(Color.BLACK);
 
 
-        addMouseListener(new MouseListener() {
+        addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-               Dot clickedDot = new Dot(MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y, 70);
+               Dot clickedDot = new Dot(MouseInfo.getPointerInfo().getLocation().x,
+                       MouseInfo.getPointerInfo().getLocation().y, 70);
                p.add(clickedDot);
                f = true;
                clickes++;
             }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
         });
 
 

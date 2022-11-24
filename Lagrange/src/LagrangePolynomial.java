@@ -34,7 +34,6 @@ public class LagrangePolynomial {
         return lagrangePol;
     }
 
-
     public void draw(final Graphics gr) {
         Graphics2D g = (Graphics2D) gr;
         int b = 0;
@@ -48,5 +47,4 @@ public class LagrangePolynomial {
             g.drawLine(i - 5, b1 - 18, i - 5 , b - 18);
         }
     }
-
 }
