@@ -26,15 +26,15 @@ public class DrawPanel extends JPanel implements ActionListener {
         timer.start();
     }
 
-    LinkedList<Dot> p = new LinkedList<>();
+    LinkedList<Dot> p = new LinkedList<Dot>();
 
     double x;
     double y;
     boolean f;
-    LinkedList<Double> xs = new LinkedList<>();
-    LinkedList<Double> ys = new LinkedList<>();
+    LinkedList<Double> xs = new LinkedList<Double>();
+    LinkedList<Double> ys = new LinkedList<Double>();
     LagrangePolynomial Lp = new LagrangePolynomial(xs, ys);
-
+    LagrangePolynomial2D Lp2D = new LagrangePolynomial2D(xs, ys);
 
 
     @Override
@@ -49,12 +49,13 @@ public class DrawPanel extends JPanel implements ActionListener {
         bckgrnd.draw(gr);
 
         if (clickes > 1) {
-            Lp.draw(gr);
+            Lp2D.draw2D(gr);
         }
         if (f == true){
-            Lp.addDot(p.getLast());
+            Lp2D.addDot(p.getLast());
             f = false;
         }
+
 
         for (int i = 0; i < p.size(); i++){
             d.setX(p.get(i).getX() - 15);
@@ -62,10 +63,7 @@ public class DrawPanel extends JPanel implements ActionListener {
             d.setColor(Color.RED);
             d.draw(gr);
         }
-
-
         d.setColor(Color.BLACK);
-
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -76,13 +74,10 @@ public class DrawPanel extends JPanel implements ActionListener {
                f = true;
                clickes++;
             }
-
         });
-
-
    }
 
-    @Override
+   //Override
     public void actionPerformed(final ActionEvent e) {
         if (e.getSource() == timer) {
             repaint();

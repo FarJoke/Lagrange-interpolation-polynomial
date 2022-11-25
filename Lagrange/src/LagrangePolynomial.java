@@ -2,8 +2,8 @@ import java.awt.*;
 import java.util.List;
 
 public class LagrangePolynomial {
-    private List<Double> xValues;
-    private List<Double> yValues;
+    public List<Double> xValues;
+    public List<Double> yValues;
 
     public LagrangePolynomial(List<Double> xValues, List<Double> yValues){
         this.xValues = xValues;
@@ -15,7 +15,7 @@ public class LagrangePolynomial {
         this.yValues.add(dot.getY());
     }
 
-    private double InterpolateLagrangePolynomialX(double x)
+    public double InterpolateLagrangePolynomialX(double x)
     {
         double lagrangePol = 0;
         for (int i = 0; i < xValues.size(); i++)
@@ -36,15 +36,20 @@ public class LagrangePolynomial {
 
     public void draw(final Graphics gr) {
         Graphics2D g = (Graphics2D) gr;
-        int b = 0;
-        int b1;
-        for (int i = 1; i < 2000; i++){
-            g.setFont(new Font("TimesRoman", Font.PLAIN, 50));
-            g.setColor(Color.BLACK);
 
-            b1 = b;
-            b = (int) InterpolateLagrangePolynomialX(i);
-            g.drawLine(i - 5, b1 - 18, i - 5 , b - 18);
+        if (xValues.size()>0) {
+            double st = xValues.get(0);
+            double finnish = xValues.get(xValues.size());
+            int b = (int) InterpolateLagrangePolynomialX(st);
+            int b1;
+            for (int i = (int) st; i < (int) finnish; i++) {
+                g.setFont(new Font("TimesRoman", Font.PLAIN, 50));
+                g.setColor(Color.BLACK);
+
+                b1 = b;
+                b = (int) InterpolateLagrangePolynomialX(i);
+                g.drawLine(i - 5, b1 - 18, i - 5, b - 18);
+            }
         }
     }
 }
