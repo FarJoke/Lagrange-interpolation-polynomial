@@ -77,7 +77,7 @@ public class DrawPanel extends JPanel implements ActionListener {
         });
    }
 
-   //Override
+   @Override
     public void actionPerformed(final ActionEvent e) {
         if (e.getSource() == timer) {
             repaint();

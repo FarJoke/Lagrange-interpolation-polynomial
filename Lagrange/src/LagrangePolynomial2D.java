@@ -4,7 +4,7 @@ import java.util.List;
 public class LagrangePolynomial2D {
     private List<Double> xValues;
     private List<Double> yValues;
-    private List<Double> tValues = new ArrayList<Double>();
+    private List<Double> tValues = new ArrayList<>();
     private  LagrangePolynomial lp2dx;
     private  LagrangePolynomial lp2dy;
 
@@ -36,18 +36,11 @@ public class LagrangePolynomial2D {
         lp2dx = new LagrangePolynomial(tValues, xValues);
         lp2dy = new LagrangePolynomial(tValues, yValues);
 
-        for (double t = 0; t <= 1; t+= 0.0001){
+        for (double t = 0; t < 1; t+= 0.0001){
             xDValues.add(lp2dx.InterpolateLagrangePolynomialX(t));
             yDValues.add(lp2dy.InterpolateLagrangePolynomialX(t));
             gr.drawString(".", (int) lp2dx.InterpolateLagrangePolynomialX(t), (int) lp2dy.InterpolateLagrangePolynomialX(t));
         }
-       // int i = 0;
-    //    while (i < xDValues.size()){
-      //      int x = xDValues.get(i).intValue();
-      //      int y = yDValues.get(i).intValue();
-      //      gr.drawString(".", x, y);
-      //      i++;
-       // }
     }
 
     public void addDot(Dot dot) {
