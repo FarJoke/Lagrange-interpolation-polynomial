@@ -26,16 +26,15 @@ public class DrawPanel extends JPanel implements ActionListener {
         timer.start();
     }
 
-    LinkedList<Dot> p = new LinkedList<Dot>();
+    LinkedList<Dot> p = new LinkedList<>();
 
     double x;
     double y;
     boolean f;
     LinkedList<Double> xs = new LinkedList<Double>();
     LinkedList<Double> ys = new LinkedList<Double>();
-    LagrangePolynomial Lp = new LagrangePolynomial(xs, ys);
+    //LagrangePolynomial Lp = new LagrangePolynomial(xs, ys);
     LagrangePolynomial2D Lp2D = new LagrangePolynomial2D(xs, ys);
-
 
     @Override
     public void paint(final Graphics gr) {

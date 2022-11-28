@@ -11,6 +11,12 @@ public class Dot {
         this.y = y;
         this.size = size;
     }
+
+    public Dot (double x, double y){
+        this.x = x;
+        this.y = y;
+    }
+
     public void setX(double x) {
         this.x = x;
     }

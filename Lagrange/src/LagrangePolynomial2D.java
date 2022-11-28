@@ -5,8 +5,6 @@ public class LagrangePolynomial2D {
     private List<Double> xValues;
     private List<Double> yValues;
     private List<Double> tValues = new ArrayList<>();
-    private  LagrangePolynomial lp2dx;
-    private  LagrangePolynomial lp2dy;
 
     public LagrangePolynomial2D(List<Double> xValues, List<Double> yValues){
         this.xValues = xValues;
@@ -20,26 +18,34 @@ public class LagrangePolynomial2D {
         this.tValues.clear();
         this.tValues.add(t1);
         for (int i = 1; i < xValues.size(); i++){
-            sum += Math.pow( Math.pow((xValues.get(i-1) - xValues.get(i)), 2) -
-                    Math.pow((yValues.get(i-1) - yValues.get(i)), 2), 0.5 );
+            sum += Math.pow( (xValues.get(i-1) - xValues.get(i)) * (xValues.get(i-1) - xValues.get(i)) -
+                    (yValues.get(i-1) - yValues.get(i)) * (yValues.get(i-1) - yValues.get(i)), 0.5 );
         }
         for (int i = 1; i < xValues.size(); i++){
-            t2 += Math.pow( Math.pow((xValues.get(i-1) - xValues.get(i)), 2) -
-                    Math.pow((yValues.get(i-1) - yValues.get(i)), 2), 0.5 )/sum;
+            t2 += Math.pow( (xValues.get(i-1) - xValues.get(i)) * (xValues.get(i-1) - xValues.get(i)) -
+                    (yValues.get(i-1) - yValues.get(i)) * (yValues.get(i-1) - yValues.get(i)), 0.5 )/sum;
             tValues.add(t2);
         }
     }
 
     public void draw2D(final Graphics gr){
-        List<Double> xDValues = new ArrayList<>();
-        List<Double> yDValues = new ArrayList<>();
-        lp2dx = new LagrangePolynomial(tValues, xValues);
-        lp2dy = new LagrangePolynomial(tValues, yValues);
+        Graphics2D g = (Graphics2D) gr;
+        BasicStroke pen1 = new BasicStroke(3);
+        g.setStroke(pen1);
+        g.setColor(Color.GREEN.darker());
 
-        for (double t = 0; t < 1; t+= 0.0001){
-            xDValues.add(lp2dx.InterpolateLagrangePolynomialX(t));
-            yDValues.add(lp2dy.InterpolateLagrangePolynomialX(t));
-            gr.drawString(".", (int) lp2dx.InterpolateLagrangePolynomialX(t), (int) lp2dy.InterpolateLagrangePolynomialX(t));
+        LagrangePolynomial lp2dx = new LagrangePolynomial(this.tValues, this.xValues);
+        LagrangePolynomial lp2dy = new LagrangePolynomial(this.tValues, this.yValues);
+        int x1, x2;
+        int y1, y2;
+        x1 = (int) lp2dx.interpolateLagrangePolynomialX(0);
+        y1 = (int) lp2dy.interpolateLagrangePolynomialX(0);
+        for (double t = 0.0001; t < 1; t+= 0.0001){
+            x2 = x1;
+            x1 = (int) lp2dx.interpolateLagrangePolynomialX(t);
+            y2 = y1;
+            y1 = (int) lp2dy.interpolateLagrangePolynomialX(t);
+            gr.drawLine(x1-5, y1-18, x2-5, y2-18);
         }
     }
 
