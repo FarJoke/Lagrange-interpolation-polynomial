@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Double.isNaN;
+
 public class LagrangePolynomial2D {
     private List<Double> xValues;
     private List<Double> yValues;
@@ -18,12 +21,12 @@ public class LagrangePolynomial2D {
         this.tValues.clear();
         this.tValues.add(t1);
         for (int i = 1; i < xValues.size(); i++){
-            sum += Math.sqrt((xValues.get(i-1) - xValues.get(i)) * (xValues.get(i-1) - xValues.get(i)) -
-                    (yValues.get(i-1) - yValues.get(i)) * (yValues.get(i-1) - yValues.get(i)));
+            sum += Math.sqrt(Math.abs(xValues.get(i-1) - xValues.get(i) * (xValues.get(i-1) - xValues.get(i)) -
+                    (yValues.get(i-1) - yValues.get(i)) * (yValues.get(i-1) - yValues.get(i))));
         }
         for (int i = 1; i < xValues.size(); i++){
-            t2 += Math.sqrt((xValues.get(i-1) - xValues.get(i)) * (xValues.get(i-1) - xValues.get(i)) -
-                    (yValues.get(i-1) - yValues.get(i)) * (yValues.get(i-1) - yValues.get(i)))/sum;
+            t2 += Math.sqrt(Math.abs(xValues.get(i-1) - xValues.get(i) * (xValues.get(i-1) - xValues.get(i)) -
+                    (yValues.get(i-1) - yValues.get(i)) * (yValues.get(i-1) - yValues.get(i))))/sum;
             tValues.add(t2);
         }
     }
@@ -33,12 +36,16 @@ public class LagrangePolynomial2D {
         LagrangePolynomial lp2dx = new LagrangePolynomial(this.tValues, this.xValues);
         LagrangePolynomial lp2dy = new LagrangePolynomial(this.tValues, this.yValues);
         Dot grPoint;
-        int x, y;
-        for (double t = 1; t >= 0; t-= 0.0001){;
-            x = (int) lp2dx.interpolateLagrangePolynomialX(t);
-            y = (int) lp2dy.interpolateLagrangePolynomialX(t);
+        double x, y;
+        for (double t = 100; t >= 0; t-= 1){;
+            x = lp2dx.interpolateLagrangePolynomialX(t/100);
+            y = lp2dy.interpolateLagrangePolynomialX(t/100);
             grPoint = new Dot(x, y);
+            //System.out.println(x + "       " + y + "         " + t);
             graphPoints.add(grPoint);
+
+
+
         }
         return graphPoints;
     }
@@ -61,6 +68,7 @@ public class LagrangePolynomial2D {
             y1 = (int) graphPoints.get(i-1).getY();
             y2 = (int) graphPoints.get(i).getY();
             gr.drawLine(x1-5, y1-18, x2-5, y2-18);
+
         }
     }
 
